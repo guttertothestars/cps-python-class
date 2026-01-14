@@ -1,0 +1,3 @@
+[submodule "walkertools"]
+	path = walkertools
+	url = https://github.com/guttertothestars/walkertools.git
