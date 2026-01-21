@@ -1,0 +1,11 @@
+# Ignore submission folders and zips
+rps_submission/
+*.zip
+
+# Ignore virtual environments
+venv/
+test_env/
+
+# Ignore python cache
+__pycache__/
+*.pyc
