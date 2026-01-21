@@ -5,8 +5,6 @@ This repository is configured for a two-semester Python course, utilizing a cent
 🚀 Daily Workflow: Sit Down & Code
 Run these every time you start working on a "new" computer or one you haven't used in a few days.
 1. Sync the Code
-Bash
-
 
 # Get the latest class assignments
 git pull
@@ -17,9 +15,6 @@ git submodule update --remote --merge
 
 2. Environment Check
 If you see (.venv) in your terminal prompt, skip this. If not:
-Bash
-
-
 # Windows
 .venv\Scripts\activate
 
@@ -30,8 +25,6 @@ source .venv/bin/activate
 
 💻 New Computer Initial Setup
 Run these only once per computer to "build" the local environment.
-Bash
-
 
 # 1. Clone the repo and the tools at once
 git clone --recursive https://github.com/guttertothestars/cps-python-class.git
@@ -51,8 +44,6 @@ pip install -r requirements.txt
 🛠 Managing 'walkertools' Updates
 Follow this sequence if you edit code inside the walkertools folder.
 Step A: Push changes to the Library Repo
-Bash
-
 
 cd walkertools
 git add .
