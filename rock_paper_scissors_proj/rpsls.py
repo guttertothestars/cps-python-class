@@ -3,6 +3,12 @@ import random
 
 import walkertools
 
+# Global Constants
+VALID_CHOICES = ("rock", "paper", "scissors")
+CHOICE_MAP = {"rock": 0, "paper": 1, "scissors": 2}
+
+RESULTS = (("tie", "lose", "win"), ("win", "tie", "lose"), ("lose", "win", "tie"))
+
 GAME_RULES = (
     "In Rock Paper Scissors, two players simultaneously choose one of three symbols: "
     "Rock (beats Scissors), Paper (beats Rock), or Scissors (beats Paper). "
@@ -11,6 +17,49 @@ GAME_RULES = (
     "If both players choose the same symbol, the round is a draw and must be replayed "
     "until a winner for that round is determined."
 )
+
+
+# print scoreboard
+def print_scoreboard(p_score, c_score):
+    scoreboard_width = 36
+    print("*" * scoreboard_width)
+    print("Scoreboard".center(scoreboard_width))
+    print(f"Player Score: {p_score} Computer Score: {c_score}".center(scoreboard_width))
+    print("*" * scoreboard_width)
+
+
+def get_player_choice():
+    while True:
+        choice = input("Choose: Rock, Paper, or Scissors: ").lower()
+        if choice in VALID_CHOICES:
+            return choice
+        print(f"Sorry, {choice} is not a valid choice")
+
+
+def get_computer_choice():
+    computer_choice = random.choice(VALID_CHOICES)
+    print(f"The computer chose {computer_choice}.")
+    return computer_choice
+
+
+def play_round():
+    # get choices
+    player_choice_str = get_player_choice()
+    computer_choice_str = get_computer_choice()
+    # convert to index
+    player_choice_index = CHOICE_MAP[player_choice_str]
+    computer_choice_index = CHOICE_MAP[computer_choice_str]
+    # calculate results
+    round_result = RESULTS[player_choice_index][computer_choice_index]
+    return round_result
+
+
+####################START OF PROGRAM#############################
+
+# Set win conditions, starting score score
+WINNING_SCORE = 3
+player_score = 0
+computer_score = 0
 
 print(walkertools.create_banner("Rock! Paper! Scissors!", "*"))
 walkertools.print_blank_lines(2)
@@ -25,84 +74,31 @@ print("Well then, let's begin")
 input("Press Enter to continue...")
 walkertools.clear_screen()
 
-
-# print scoreboard and kickoff game
-def print_scoreboard(p_score, c_score):
-    scoreboard_width = 36
-    print("*" * scoreboard_width)
-    print("Scoreboard".center(scoreboard_width))
-    print(f"Player Score: {p_score} Computer Score: {c_score}".center(scoreboard_width))
-    print("*" * scoreboard_width)
-
-
-WINNING_SCORE = 2
-player_score = 0
-computer_score = 0
-
 print_scoreboard(player_score, computer_score)
 walkertools.print_blank_lines(3)
 
 
-def get_player_choice():
-    VALID_CHOICES = ["rock", "paper", "scissors"]
-
-    while True:
-        choice = input("Choose: Rock, Paper, or Scissors: ").lower()
-        if choice in VALID_CHOICES:
-            return choice
-        print(f"Sorry, {choice} is not a valid choice")
-
-
-def get_computer_choice():
-    VALID_CHOICES = ["rock", "paper", "scissors"]
-    computer_choice = random.choice(VALID_CHOICES)
-    print(f"The computer chose {computer_choice}.")
-    return computer_choice
-
-
-def play_round(p_score, c_score):
-    # get choices
-    player_choice = get_player_choice()
-    computer_choice = get_computer_choice()
-'''
-All this needs to be rewritten to reflect the new data stucture needed for rpsls.
-    # handle ties
-    if player_choice == computer_choice:
-        print("Tie game. No score.")
-        input("\nPress enter to continue...")
-        return p_score, c_score
-
-    player_wins_round = False
-
-    # determine winner
-    if player_choice == "rock" and computer_choice == "scissors":
-        player_wins_round = True
-    elif player_choice == "paper" and computer_choice == "rock":
-        player_wins_round = True
-    elif player_choice == "scissors" and computer_choice == "paper":
-        player_wins_round = True
-
-    # update score
-    if player_wins_round:
-        print("You won this round!")
-        p_score += 1
-    else:
-        print("Computer won this round!")
-        c_score += 1
-'''
-
-    input("\nPress Enter to continue...")
-    return p_score, c_score
-
-
-# game loop, exits when win-condition met
+# Main game loop, exits when win-condition met
 while player_score < WINNING_SCORE and computer_score < WINNING_SCORE:
-    player_score, computer_score = play_round(player_score, computer_score)
+    result = play_round()
+    if result == "win":
+        player_score += 1
+    elif result == "lose":
+        computer_score += 1
     walkertools.clear_screen()
     print_scoreboard(player_score, computer_score)
-    walkertools.print_blank_lines(3)
 
-# game loop over, setup and display final score
+    # Show the result of the round and pause
+    if result == "win":
+        print("You won this round!")
+    elif result == "lose":
+        print("Computer won this round!")
+    else:
+        print("Round tied, no points awarded")
+
+    walkertools.print_blank_lines(1)
+    input("Press Enter to continue...")
+# Game loop over, setup and display final score
 walkertools.clear_screen()
 
 if player_score == WINNING_SCORE:
