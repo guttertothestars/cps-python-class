@@ -1,0 +1,6 @@
+asset_id,device_type,assigned_user,os_version,status
+1001,Laptop,Walker,Mint 21.3,Active
+1002,Desktop,Sarah,Win 11,Repair
+1003,Server,Admin,Ubuntu 22.04,Active
+1004,Laptop,Chen,macOS 14,Retired
+1005,Tablet,Guest,Android 13,Active

@@ -51,3 +51,33 @@ def practice_with_string():
 
 
 practice_with_string()
+
+
+def practice_with_dictionary():
+    print("\nPracticing with dictionaries...")
+    print("Let's enter 3 names and gpas.")
+    students = dict()
+    for x in range(3):
+        name = input("Enter name: ")
+        gpa = input("Enter " + name + "'s " + "gpa: ")
+        students[name] = gpa
+    print("dictionary is", students)
+    print("number of pairs ", len(students))
+    for k in students.keys():
+        print(k, " had a gpa of: ", students.get(k))
+    print("Lowest gpa is: ", min(students.values()))
+    print("Highest gpa is: ", max(students.values()))
+    gpas = list(students.values())
+    gpas.sort()
+    print("gpas sorted is ", gpas)
+    struct = []
+    for k, v in students.items():
+        struct.append([v, k])
+    struct.sort()
+    print("Printing in sorted order:")
+    for x in struct:
+        print(x[0], "earned by ", x[1])
+    input("\nEnter any key to continue: ")
+
+
+practice_with_dictionary()
