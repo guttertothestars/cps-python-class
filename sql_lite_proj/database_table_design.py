@@ -139,12 +139,20 @@ def load_from_file(db_conn):
     # Open a CSV file-could import csv module, but this is easier
     file_ptr = open("assets.csv", "r")
     headers = file_ptr.readline()  # reads in as a string
-
+    list_of_tuples = []
     # read in each row from CSV
     for line in file_ptr:
-        print(line)
+        # the next four lines COULD be combined. Should?
+        line = line.strip()
+        list_of_fields = line.split(",")
+        tuple_of_fields = tuple(list_of_fields)
+        list_of_tuples.append(tuple_of_fields)
 
     # insert all rows into DB
+    sql_statement = "INSERT INTO assets VALUES (?, ?, ?, ?, ?)"
+    db_conn.executemany(sql_statement, list_of_tuples)
+    db_conn.commit()
+    print(len(list_of_tuples), "rows inserted")k
 
 
 def display_menu(db_conn):
